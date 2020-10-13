@@ -180,10 +180,9 @@ class CreateModel extends \App\Http\Controllers\Controller
     public static function web($tables)
     {
         $content = view('views::_web_template', ['tables' => $tables]);
-        $path = Config::get('view.paths');
-        $newPath = $path[0] . "/route";
-        if (file_exists($newPath)) {
-            $modelFile = $newPath . "/" . "web.php";
+        $path = base_path('routes');
+        if (file_exists($path)) {
+            $modelFile = $path . "/" . "generated-routes.php";
             if (file_put_contents($modelFile, $content) !== false) {
                 return ['success' => "web (" . basename($modelFile) . ")"];
             }

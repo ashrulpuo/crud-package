@@ -20,7 +20,7 @@ class GenerateCommand extends Command {
         foreach ($getTables as $key => $value) {
             $tables[] = $value->TABLE_NAME;
         }
-        // CreateModel::web($tables);
+        CreateModel::web($tables);
         CreateModel::GetColumns($tables);
     }
 
