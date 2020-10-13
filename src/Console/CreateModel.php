@@ -76,11 +76,9 @@ class CreateModel extends \App\Http\Controllers\Controller
 
     public static function model($set, $table)
     {
-        // $crrDir = dirname(__DIR__, 1).'/views';
-        // dd($crrDir);
         $content = view('views::_model_template', ['set' => $set, 'table' => $table]);
-        $path = app_path();
-        $modelFile = $path . "/" . $table . '.php';
+        $path = base_path();
+        $modelFile = $path . '/app/' . $table . '.php';
         if (file_put_contents($modelFile, $content) !== false) {
             return ['success' => "Model created (" . basename($modelFile) . ")"];
         }
@@ -89,8 +87,13 @@ class CreateModel extends \App\Http\Controllers\Controller
     public static function controller($set, $table)
     {
         $content = view('views::_controller_template', ['set' => $set, 'table' => $table]);
-        $path = app_path() . '/Http/Controllers/Tetapan';
+        $path = base_path() . '/app/Http/Controllers/Tetapan';
         $modelFile = $path . "/" . $table . 'Controller.php';
+        if(!file_exists($path)) {
+            $path = base_path() . '/app/Http/Controllers/' . 'Tetapan';
+            mkdir($path, 0777, true);
+        }
+
         // if (!file_exists($modelFile)){
         if (file_put_contents($modelFile, $content) !== false) {
             return ['success' => "Controller (" . basename($modelFile) . ")"];
@@ -101,8 +104,14 @@ class CreateModel extends \App\Http\Controllers\Controller
     public static function req($set, $table)
     {
         $content = view('views::_request_template', ['set' => $set, 'table' => $table]);
-        $path = app_path() . '/Http/Requests';
+        $path = base_path() . '/app/Http/Requests';
         $modelFile = $path . "/" . $table . 'Requests.php';
+
+        if(!file_exists($path)) {
+            $path = base_path() . "/app/Http/" . 'Requests';
+            mkdir($path, 0777, true);
+        }
+
         // if (!file_exists($modelFile)){
         if (file_put_contents($modelFile, $content) !== false) {
             return ['success' => "requests (" . basename($modelFile) . ")"];
@@ -149,11 +158,17 @@ class CreateModel extends \App\Http\Controllers\Controller
         $content = view('views::_js_template', ['set' => $set, 'table' => $table]);
         $convert = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $table));
         $path = resource_path();
-        $newPath = $path . "/spr/js/tetapan";
+        $newPath = $path . "/js/tetapan";
+        
+        if(!file_exists($newPath)) {
+            $path = resource_path() . "/js/"."tetapan";
+            mkdir($path, 0777, true);
+        }
+        
         // $path = "/Users/pocketdata/Desktop/docker-webstack/projects/"."spr/src/resources/spr/js/tetapan";
         // $newPath = $path.'/'.$convert;
         if (file_exists($newPath)) {
-            $modelFile = $path . "/" . substr($convert, 4) . '.js';
+            $modelFile = $newPath . "/" . substr($convert, 4) . '.js';
             if (!file_exists($modelFile)) {
                 if (file_put_contents($modelFile, $content) !== false) {
                     return ['success' => "js (" . basename($modelFile) . ")"];
