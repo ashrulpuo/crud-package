@@ -1,0 +1,23 @@
+{
+    "name": "ashrul/generator-tetapan",
+    "description": "crud generator for tetapan",
+    "license": "MIT",
+    "authors": [{
+        "name": "ashrul",
+        "email": "mohdashrul70@gmail.com"
+    }],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Ashrul\\Generator\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ashrul\\Generator\\GeneratorServiceProvider"
+            ]
+        }
+    }
+
+}
