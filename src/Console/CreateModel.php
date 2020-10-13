@@ -104,11 +104,11 @@ class CreateModel extends \App\Http\Controllers\Controller
     public static function req($set, $table)
     {
         $content = view('views::_request_template', ['set' => $set, 'table' => $table]);
-        $path = base_path() . '/app/Http/Requests';
+        $path = base_path() . '/app/Http/Requests/Tetapan';
         $modelFile = $path . "/" . $table . 'Requests.php';
 
         if(!file_exists($path)) {
-            $path = base_path() . "/app/Http/" . 'Requests';
+            $path = base_path() . "/app/Http/" . 'Requests/Tetapan';
             mkdir($path, 0777, true);
         }
 
